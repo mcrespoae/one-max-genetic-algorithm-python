@@ -66,4 +66,3 @@ The genetic algorithm uses multithreading for parallel execution, optimizing run
 
 - [Mario Crespo](https://github.com/mcrespoae)
 
->>>>>>> master
