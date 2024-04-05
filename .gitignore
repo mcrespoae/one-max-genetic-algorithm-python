@@ -1,0 +1,16 @@
+# Ignore Python bytecode files
+*.pyc
+__pycache__/
+
+# Ignore CodeRunner file
+tempCodeRunnerFile.py
+
+# Ignore environment directory
+.venv/
+
+# Ignore any other virtual environment directory
+venv/
+env/
+
+# Ignore Visual Studio Code directory
+.vscode/
