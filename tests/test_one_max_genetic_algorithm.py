@@ -1,5 +1,3 @@
-# tests/test_main.py
-
 import unittest
 from one_max_genetic_algorithm_python.one_max_genetic_algorithm import (random_genome, init_population, get_genome_fitness,
                                                                         calculate_population_fitnesses, get_target_fitness,
