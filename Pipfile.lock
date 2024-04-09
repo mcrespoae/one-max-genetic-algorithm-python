@@ -1,11 +1,11 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "1964e0e5c74aff77f8fbd67a57bf66b33ce39668a3448b2d836f06a956cfa14a"
+            "sha256": "71d7800f1b3eabea233dee79db008413c11cc14209cb27fabce2bb65dffa6b79"
         },
         "pipfile-spec": 6,
         "requires": {
-            "python_version": "3.12"
+            "python_version": "3.11"
         },
         "sources": [
             {
@@ -16,6 +16,14 @@
         ]
     },
     "default": {
+        "colorama": {
+            "hashes": [
+                "sha256:08695f5cb7ed6e0531a20572697297273c47b8cae5a63ffc6d6ed5c201be6e44",
+                "sha256:4f1d9991f5acc0ca119f9d443620b77f9d6b33703e51011c16baf57afb285fc6"
+            ],
+            "markers": "platform_system == 'Windows'",
+            "version": "==0.4.6"
+        },
         "mypy": {
             "hashes": [
                 "sha256:0235391f1c6f6ce487b23b9dbd1327b4ec33bb93934aa986efe8a9563d9349e6",
@@ -47,7 +55,6 @@
                 "sha256:fe28657de3bfec596bbeef01cb219833ad9d38dd5393fc649f4b366840baefe6"
             ],
             "index": "pypi",
-            "markers": "python_version >= '3.8'",
             "version": "==1.9.0"
         },
         "mypy-extensions": {
@@ -64,7 +71,6 @@
                 "sha256:6cd52cdf0fef0e0f543299cfc96fec90d7b8a7e88745f411ec33eb44d5ed3531"
             ],
             "index": "pypi",
-            "markers": "python_version >= '3.7'",
             "version": "==4.66.2"
         },
         "typing-extensions": {
