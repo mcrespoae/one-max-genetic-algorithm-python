@@ -5,7 +5,7 @@ from concurrent.futures import ProcessPoolExecutor
 from results import Results
 from one_max_genetic_algorithm import genetic_algorithm
 from utils import generate_equally_spaced_values
-# from timeit_functions import timeit
+from timeit_functions import timeit
 
 RUN_TIMES: int = 2
 GENERATIONS: int = 500
@@ -73,7 +73,7 @@ def process_genetic_algorithm(mutation_rate_values: List[float], crossover_rate_
     print(f"{best_result}")
 
 
-# @timeit
+@timeit
 def main() -> None:
 
     mutation_rate_values = generate_equally_spaced_values(min_val=MUTATION_RATE_MIN, max_val=MUTATION_RATE_MAX, length=8, invert=True)
