@@ -38,8 +38,7 @@ def process_genetic_algorithm(mutation_rate_values: List[float], crossover_rate_
             results = Results(max_generations=GENERATIONS, max_fitness=1.0)
             progress_bar.set_description(f"Score:{prev_best_score:.3f}")
 
-
-            with ProcessPoolExecutor(workers=workers) as executor:
+            with ProcessPoolExecutor(max_workers=workers) as executor:
                 future_tasks = [executor.submit(genetic_algorithm, POPULATION_SIZE, GENOME_LENGTH,
                                                 GENERATIONS, mutation_rate, crossover_rate,
                                                 SELECT_PARENT_MODE, TARGET_GENERATION_FITNESS) for _ in range(RUN_TIMES)]
