@@ -5,6 +5,7 @@ from one_max_genetic_algorithm_python.one_max_genetic_algorithm import (random_g
                                                                         select_parent_tournament, select_parent_roulette, crossover,
                                                                         mutate, genetic_algorithm)
 
+
 class TestGeneticAlgorithm(unittest.TestCase):
 
     def test_random_genome_length(self):
@@ -21,7 +22,7 @@ class TestGeneticAlgorithm(unittest.TestCase):
     def test_random_genome_zero_length(self):
         length = 0
         genome = random_genome(length)
-        self.assertTrue(len(genome) == 0)
+        self.assertEqual(len(genome), 0)
 
     def test_init_population_length(self):
         population_size = 10
@@ -116,7 +117,7 @@ class TestGeneticAlgorithm(unittest.TestCase):
         expected_generation_fitness = 0.7
         actual_generation_fitness = get_generation_fitness(fitness_values, 3)
         epsilon = 0.0001
-        self.assertTrue(abs(actual_generation_fitness - expected_generation_fitness) < epsilon)
+        self.assertLess(abs(actual_generation_fitness - expected_generation_fitness), epsilon)
 
     def test_select_parent(self):
         # Test scenario with a small population
@@ -130,7 +131,7 @@ class TestGeneticAlgorithm(unittest.TestCase):
 
         mode = "gibberish"
         selected_individual = select_parent(population, fitness_values, mode)
-        self.assertTrue(selected_individual in population)   # Ensure the selected individual is from the population
+        self.assertIn(selected_individual, population)   # Ensure the selected individual is from the population
 
     def test_select_parent_tournament(self):
         # Test scenario with a small population
@@ -144,7 +145,7 @@ class TestGeneticAlgorithm(unittest.TestCase):
         tournament_size = 2
 
         selected_individual = select_parent_tournament(population, fitness_values, tournament_size)
-        self.assertTrue(selected_individual in population)  # Ensure the selected individual is from the population
+        self.assertIn(selected_individual, population)  # Ensure the selected individual is from the population
 
     def test_select_parent_roulette(self):
         # Test scenario with a small population
@@ -157,7 +158,7 @@ class TestGeneticAlgorithm(unittest.TestCase):
         fitness_values = calculate_population_fitnesses(population)
 
         selected_individual = select_parent_roulette(population, fitness_values)
-        self.assertTrue(selected_individual in population)   # Ensure the selected individual is from the population
+        self.assertIn(selected_individual, population)   # Ensure the selected individual is from the population
 
     def test_crossover_no_crossover(self):
         # Given
@@ -250,6 +251,7 @@ class TestGeneticAlgorithm(unittest.TestCase):
         self.assertLessEqual(generation_fitness, 1)
         self.assertGreaterEqual(best_fitness, 0)
         self.assertLessEqual(best_fitness, 1)
+
 
 if __name__ == '__main__':
     unittest.main()
