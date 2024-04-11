@@ -22,7 +22,7 @@ CROSSOVER_RATE_MAX: float = 0.8
 
 
 def process_genetic_algorithm(mutation_rate_values: List[float], crossover_rate_values: List[float]):
-    workers = max(2, cpu_count() - 2)
+    workers = max(2, cpu_count() - 2) if cpu_count() is not None else 2
     total_iterations = len(mutation_rate_values) * len(crossover_rate_values)
     progress_bar = tqdm(total=total_iterations, desc="Processing")
     best_mutation_rate = 0
