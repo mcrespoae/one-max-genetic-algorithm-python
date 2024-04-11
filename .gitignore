@@ -6,7 +6,7 @@ __pycache__/
 tempCodeRunnerFile.py
 
 # Ignore environment directory
-.venv/
+.venv/*
 
 # Ignore any other virtual environment directory
 venv/
