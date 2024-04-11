@@ -3,18 +3,28 @@
 
 This project implements a genetic algorithm to solve the One Max Problem, which involves finding a binary string of maximum length where all bits are set to 1.
 
+## Requirements
+- [Pipenv](https://pipenv.pypa.io/).
+- [Python 3.11](https://www.python.org/downloads/release/python-3119/).
+- [Make](https://www.gnu.org/software/make/) *(Optional)* . Fow Windows I recommend using [Chocolatery](https://chocolatey.org/install) using  `choco install make `
+
+
 ## Installation
 
-You can install this project using [Pipenv](https://pipenv.pypa.io/). First, clone the repository and navigate to the project directory. If you want the dependencies to be installed in the same directory, create an empty directory called `.venv`. Then, run the following command:
+To set up this project, begin by cloning the repository and navigating to the project directory. Install the dependencies by running:
 ```bash
 pipenv install
 ```
+Alternatively, if you prefer using Make, you can execute:
+```bash
+make install
+```
 
-This will create a virtual environment and install all dependencies specified in the Pipfile.
+Both commands will establish a virtual environment and install all dependencies specified in the Pipfile.
 
 ## Project tree
-
 - `__init__.py`
+- `Makefile`: Contains useful project related commands.
 - `one_max_genetic_algorithm_python`
     - `__init__.py`
     - `main.py`: Contains the main entry point for running the algorithm.
@@ -25,17 +35,20 @@ This will create a virtual environment and install all dependencies specified in
 - `tests`
     - `__init__.py`
     - `test_one_max_genetic_algorithm.py`: Unittests for the genetic algorithm.
+    - `test_results.py`: Unittests for the Results class.
+    - `test_utils.py`: Unittests for the utils file.
 
 
-## Dependencies
-
+## External Dependencies
 - `tqdm`: Used for displaying progress bars during execution.
-- `concurrent.futures`: Used for parallel execution of genetic algorithm runs.
 - `typing`: Provides type hints for the codebase.
 
 ## Usage
-
-To run the genetic algorithm, execute `main.py`. You can adjust various parameters in `main.py` to customize the genetic algorithm's behavior. These parameters include:
+To run the genetic algorithm, execute `main.py`:
+```bash
+python main.py
+```
+You can adjust various parameters in `main.py` to customize the genetic algorithm's behavior. These parameters include:
 
 - `RUN_TIMES`: Number of times to run the genetic algorithm.
 - `GENERATIONS`: Number of generations in the genetic algorithm.
@@ -47,11 +60,14 @@ To run the genetic algorithm, execute `main.py`. You can adjust various paramete
 - `MUTATION_RATE_MAX`: Maximum mutation rate.
 - `CROSSOVER_RATE_MIN`: Minimum crossover rate.
 - `CROSSOVER_RATE_MAX`: Maximum crossover rate.
-```bash
-python main.py
-```
-## Algorithm Overview
 
+If you're using Make, you can also execute the main file using the following command:
+
+```bash
+make run
+```
+
+## Algorithm Overview
 The genetic algorithm proceeds as follows:
 
 1. **Initialization**: Initialize a population of binary strings randomly.
@@ -63,12 +79,16 @@ The genetic algorithm proceeds as follows:
 7. **Termination**: Repeat steps 2-6 until a termination condition is met, such as reaching a maximum number of generations or achieving a target fitness level.
 
 ## Results
-
 The project includes functionality to process the genetic algorithm with different mutation rates and crossover rates to determine the optimal combination for solving the One Max Problem efficiently. The results are displayed, showing the best mutation rate and crossover rate found during the processing.
 
 ## Optimization
-
 The genetic algorithm employs concurrent processing techniques for parallel execution, enhancing runtime performance.
+
+## Testing
+The code is equipped with comprehensive unit tests to ensure reliability. They can be executed by using the Make command:
+```bash
+make test
+```
 
 ## Contributors
 

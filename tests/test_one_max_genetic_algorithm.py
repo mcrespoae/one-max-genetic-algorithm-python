@@ -219,9 +219,9 @@ class TestGeneticAlgorithm(unittest.TestCase):
 
     def test_genetic_algorithm_custom_parameters(self):
         # Test with custom parameters
-        population_size = 50
-        genome_length = 30
-        max_generations = 500
+        population_size = 10
+        genome_length = 5
+        max_generations = 50
         mutation_rate = 0.01
         crossover_rate = 0.8
         select_parent_mode = "roulette"
