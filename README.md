@@ -21,7 +21,7 @@ This will create a virtual environment and install all dependencies specified in
     - `one_max_genetic_algorithm.py`: Implementation of the genetic algorithm.
     - `timeit_functions.py`: Contains a decorator function for measuring the execution time.
     - `results.py`: Contains a class for storing and computing the results of the genetic algorithm.
-    - `helper.py`: Contains helper functions.
+    - `utils.py`: Contains helper functions.
 - `tests`
     - `__init__.py`
     - `test_one_max_genetic_algorithm.py`: Unittests for the genetic algorithm.

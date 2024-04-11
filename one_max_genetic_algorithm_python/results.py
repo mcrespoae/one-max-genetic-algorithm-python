@@ -34,6 +34,7 @@ class Results:
     def calculate_ponderate_score(self) -> None:
         if len(self.generations) == 0:
             self.score = 0
+            return
 
         # Define weights for each metric
         weight_best_fitness: float = 0.4
@@ -58,4 +59,4 @@ class Results:
         return self.score
 
     def __repr__(self) -> str:
-        return f"Overall score: {self.score:.3f} \nBest fitness: {self.best_fitness} \nAverage Generation Fitness: {self.avg_generation_fitness:.3f} \nAverage Best Fitness: {self.avg_best_fitness:.3f} \nAverage Generations Runned: {self.avg_generation:.3f} of {self.max_generations} max generations."
+        return f"Overall Score: {self.score:.3f} \nBest Fitness: {self.best_fitness} \nAvg Generation Fitness: {self.avg_generation_fitness:.3f} \nAvg Best Fitness: {self.avg_best_fitness:.3f} \nAvg Generations Run: {self.avg_generation:.3f} of {self.max_generations} max generations."

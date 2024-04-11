@@ -2,7 +2,8 @@ import unittest
 from one_max_genetic_algorithm_python.one_max_genetic_algorithm import (random_genome, init_population, get_genome_fitness,
                                                                         calculate_population_fitnesses, get_target_fitness,
                                                                         get_best_fitness, get_generation_fitness, select_parent,
-                                                                        select_parent_tournament, select_parent_roulette, crossover, mutate,)
+                                                                        select_parent_tournament, select_parent_roulette, crossover,
+                                                                        mutate, genetic_algorithm)
 
 class TestGeneticAlgorithm(unittest.TestCase):
 
@@ -198,6 +199,57 @@ class TestGeneticAlgorithm(unittest.TestCase):
     def test_mutate_mixed_with_rate_0_5(self):
         mutated_genome = mutate([0, 1, 0, 1], 0.5)
         self.assertEqual(len(mutated_genome), 4)
+
+    def test_genetic_algorithm_default_parameters(self):
+        # Test with default parameters
+        generation, generation_fitness, best_fitness = genetic_algorithm()
+        self.assertIsInstance(generation, int)
+        self.assertIsInstance(generation_fitness, float)
+        self.assertIsInstance(best_fitness, float)
+
+        # Check if generation is less than or equal to max_generations
+        self.assertLessEqual(generation, 1000)
+
+        # Check if generation_fitness and best_fitness are within the range [0, 1]
+        self.assertGreaterEqual(generation_fitness, 0)
+        self.assertLessEqual(generation_fitness, 1)
+        self.assertGreaterEqual(best_fitness, 0)
+        self.assertLessEqual(best_fitness, 1)
+
+    def test_genetic_algorithm_custom_parameters(self):
+        # Test with custom parameters
+        population_size = 50
+        genome_length = 30
+        max_generations = 500
+        mutation_rate = 0.01
+        crossover_rate = 0.8
+        select_parent_mode = "roulette"
+        target_generation_fitness = 0.95
+        verbose = True
+
+        generation, generation_fitness, best_fitness = genetic_algorithm(
+            population_size=population_size,
+            genome_length=genome_length,
+            max_generations=max_generations,
+            mutation_rate=mutation_rate,
+            crossover_rate=crossover_rate,
+            select_parent_mode=select_parent_mode,
+            target_generation_fitness=target_generation_fitness,
+            verbose=verbose
+        )
+
+        self.assertIsInstance(generation, int)
+        self.assertIsInstance(generation_fitness, float)
+        self.assertIsInstance(best_fitness, float)
+
+        # Check if generation is less than or equal to max_generations
+        self.assertLessEqual(generation, max_generations)
+
+        # Check if generation_fitness and best_fitness are within the range [0, 1]
+        self.assertGreaterEqual(generation_fitness, 0)
+        self.assertLessEqual(generation_fitness, 1)
+        self.assertGreaterEqual(best_fitness, 0)
+        self.assertLessEqual(best_fitness, 1)
 
 if __name__ == '__main__':
     unittest.main()
