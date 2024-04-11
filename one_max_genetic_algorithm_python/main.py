@@ -1,4 +1,5 @@
 # One max problem solved with a genetic algorithm
+from os import cpu_count
 from tqdm import tqdm
 from typing import List
 from concurrent.futures import ProcessPoolExecutor
@@ -7,7 +8,7 @@ from one_max_genetic_algorithm import genetic_algorithm
 from utils import generate_equally_spaced_values
 from timeit_functions import timeit
 
-RUN_TIMES: int = 2
+RUN_TIMES: int = 10
 GENERATIONS: int = 500
 POPULATION_SIZE: int = 90
 GENOME_LENGTH: int = 25
@@ -21,6 +22,7 @@ CROSSOVER_RATE_MAX: float = 0.8
 
 
 def process_genetic_algorithm(mutation_rate_values: List[float], crossover_rate_values: List[float]):
+    workers = max(2, cpu_count() - 2)
     total_iterations = len(mutation_rate_values) * len(crossover_rate_values)
     progress_bar = tqdm(total=total_iterations, desc="Processing")
     best_mutation_rate = 0
@@ -36,7 +38,8 @@ def process_genetic_algorithm(mutation_rate_values: List[float], crossover_rate_
             results = Results(max_generations=GENERATIONS, max_fitness=1.0)
             progress_bar.set_description(f"Score:{prev_best_score:.3f}")
 
-            with ProcessPoolExecutor(max_workers=None) as executor:
+
+            with ProcessPoolExecutor(workers=workers) as executor:
                 future_tasks = [executor.submit(genetic_algorithm, POPULATION_SIZE, GENOME_LENGTH,
                                                 GENERATIONS, mutation_rate, crossover_rate,
                                                 SELECT_PARENT_MODE, TARGET_GENERATION_FITNESS) for _ in range(RUN_TIMES)]
