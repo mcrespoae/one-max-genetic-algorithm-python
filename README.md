@@ -89,6 +89,8 @@ The code is equipped with comprehensive unit tests to ensure reliability. They c
 ```bash
 make test
 ```
+## Rust implementation
+I've also developed this repository in [Rust](https://github.com/mcrespoae/one-max-genetic-algorithm-python), achieving an average execution time that's 3.4 times faster compared to Python.
 
 ## Contributors
 
