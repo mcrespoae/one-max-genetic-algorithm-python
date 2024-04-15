@@ -24,17 +24,19 @@ Both commands will establish a virtual environment and install all dependencies 
 
 ## Project tree
 - `__init__.py`
-- `Makefile`: Contains useful project related commands.
+- `Makefile`: Contains useful project-related commands.
 - `one_max_genetic_algorithm_python`
     - `__init__.py`
     - `main.py`: Contains the main entry point for running the algorithm.
-    - `one_max_genetic_algorithm.py`: Implementation of the genetic algorithm.
+    - `one_max_genetic_algorithm_numpy.py`: Implementation of the genetic algorithm using the NumPy library.
+    - `one_max_genetic_algorithm_vannilla.py`: Implementation of the genetic algorithm using vanilla Python. 
     - `timeit_functions.py`: Contains a decorator function for measuring the execution time.
     - `results.py`: Contains a class for storing and computing the results of the genetic algorithm.
     - `utils.py`: Contains helper functions.
 - `tests`
     - `__init__.py`
-    - `test_one_max_genetic_algorithm.py`: Unittests for the genetic algorithm.
+    - `test_one_max_genetic_algorithm_vanilla.py`: Unit and integration tests for the genetic algorithm for the vanilla Python implementation.
+    - `test_one_max_genetic_algorithm_numpy.py`: Unit and integration tests for the genetic algorithm for the NumPy implementation.
     - `test_results.py`: Unittests for the Results class.
     - `test_utils.py`: Unittests for the utils file.
 
@@ -63,7 +65,7 @@ You can adjust various parameters in `main.py` to customize the genetic algorith
 - `MUTATION_RATE_MAX`: Maximum mutation rate.
 - `CROSSOVER_RATE_MIN`: Minimum crossover rate.
 - `CROSSOVER_RATE_MAX`: Maximum crossover rate.
-- `USE_NUMPY`: Whether to use the NumPy version or the vanilla version. The NumPy version may have slightly slower performance compared to the vanilla implementation. This NumPy implementation serves only to showcase my working knowledge in NumPy.
+- `USE_NUMPY`: Whether to use the NumPy version or the vanilla version. The NumPy version may have a slightly slower performance compared to the vanilla implementation. This NumPy implementation serves only to showcase my working knowledge in NumPy.
 
 
 If you're using Make, you can also execute the main file using the following command:
