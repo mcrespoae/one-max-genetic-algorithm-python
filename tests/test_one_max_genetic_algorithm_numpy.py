@@ -225,6 +225,23 @@ class TestUnitGeneticAlgorithm(unittest.TestCase):
         avg_mutation_gen_fitness = sum(mutated_gen_fitness) / len(mutated_gen_fitness)
         self.assertTrue(0.49 <= avg_mutation_gen_fitness <= 0.51)
 
+    def test_population_size_odd(self):
+        population_size = 101
+        population = np.array([[0, 1, 0, 1]] * population_size)
+        fitness_values = np.full(population_size, 0.5)
+        select_parent_mode = "tournament"
+        crossover_rate = 0.8
+        mutation_rate = 0.03
+        population_fitness = calculate_population_fitnesses(population)
+        population_fitness_avg = get_generation_fitness(population_fitness, population_size)
+
+        new_population = create_new_population(population_size, population, fitness_values, select_parent_mode, crossover_rate, mutation_rate)
+        new_population_fitness = calculate_population_fitnesses(new_population)
+        new_population_fitness_avg = get_generation_fitness(new_population_fitness, population_size)
+
+        self.assertEqual(len(new_population), population_size)
+        self.assertLessEqual(population_fitness_avg*0.8, new_population_fitness_avg)
+
     def test_genetic_algorithm_default_parameters(self):
         # Test with default parameters
         generation, generation_fitness, best_fitness = genetic_algorithm()

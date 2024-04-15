@@ -56,6 +56,7 @@ You can adjust various parameters in `main.py` to customize the genetic algorith
 - `GENERATIONS`: Number of generations in the genetic algorithm.
 - `POPULATION_SIZE`: Size of the population in each generation.
 - `GENOME_LENGTH`: Length of the binary string.
+- `SELECT_PARENT_MODE`: Type of parent selection. tournament or roulette. Tournament usually converges faster and yields better results.
 - `TARGET_GENERATION_FITNESS`: Target fitness for a generation to be considered successful and skip the next iterations. From 0 to 1. Values close to 1.0 will yield better results.
 - `TARGET_PROBLEM_FITNESS`: Target fitness for the whole problem to be marked as solved. From 0 to 1. Values very close to 1.0 will not stop the execution.
 - `MUTATION_RATE_MIN`: Minimum mutation rate.

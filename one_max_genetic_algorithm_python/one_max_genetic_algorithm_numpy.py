@@ -96,7 +96,7 @@ def create_new_population(population_size: int, population: np.ndarray,
 
     new_population = np.empty_like(population)
 
-    for i in range(0, population_size, 2):
+    for i in range(0, population_size-1, 2):
         parent1 = select_parent(population, fitness_values, mode=select_parent_mode)
         parent2 = select_parent(population, fitness_values, mode=select_parent_mode)
         offspring1, offspring2 = crossover(parent1, parent2, crossover_rate)

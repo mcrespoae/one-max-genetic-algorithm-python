@@ -37,5 +37,6 @@ class TestGenerateEquallySpacedValues(unittest.TestCase):
         expected_values = [5.0, 4.0, 3.0, 2.0]
         self.assertEqual(generate_equally_spaced_values(min_val, max_val, length, invert=True), expected_values)
 
+
 if __name__ == '__main__':
     unittest.main()

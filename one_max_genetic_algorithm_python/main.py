@@ -7,7 +7,7 @@ from results import Results
 from utils import generate_equally_spaced_values
 from timeit_functions import timeit
 
-RUN_TIMES: int = 30
+RUN_TIMES: int = 10
 GENERATIONS: int = 500
 POPULATION_SIZE: int = 90
 GENOME_LENGTH: int = 25
