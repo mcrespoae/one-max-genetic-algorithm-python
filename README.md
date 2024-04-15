@@ -42,6 +42,8 @@ Both commands will establish a virtual environment and install all dependencies 
 ## External Dependencies
 - `tqdm`: Used for displaying progress bars during execution.
 - `typing`: Provides type hints for the codebase.
+- `numpy`: Provides support for numerical computing in Python.
+
 
 ## Usage
 To run the genetic algorithm, execute `main.py`:
@@ -60,6 +62,8 @@ You can adjust various parameters in `main.py` to customize the genetic algorith
 - `MUTATION_RATE_MAX`: Maximum mutation rate.
 - `CROSSOVER_RATE_MIN`: Minimum crossover rate.
 - `CROSSOVER_RATE_MAX`: Maximum crossover rate.
+- `USE_NUMPY`: Whether to use the NumPy version or the vanilla version. The NumPy version may have slightly slower performance compared to the vanilla implementation. This NumPy implementation serves only to showcase my working knowledge in NumPy.
+
 
 If you're using Make, you can also execute the main file using the following command:
 
@@ -85,12 +89,12 @@ The project includes functionality to process the genetic algorithm with differe
 The genetic algorithm employs concurrent processing techniques for parallel execution, enhancing runtime performance.
 
 ## Testing
-The code is equipped with comprehensive unit tests to ensure reliability. They can be executed by using the Make command:
+The code is equipped with comprehensive unit and integration tests to ensure reliability. They can be executed by using the Make command:
 ```bash
 make test
 ```
 ## Rust implementation
-I've also developed this repository in [Rust](https://github.com/mcrespoae/one-max-genetic-algorithm-python), achieving an average execution time that's 3.4 times faster compared to Python.
+I've also developed this repository in [Rust](https://github.com/mcrespoae/one-max-genetic-algorithm-python), achieving an average execution time that's 3.4 times faster compared to vanilla Python.
 
 ## Contributors
 

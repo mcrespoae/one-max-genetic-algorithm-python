@@ -18,7 +18,7 @@ MUTATION_RATE_MIN: float = 0.001
 MUTATION_RATE_MAX: float = 0.01
 CROSSOVER_RATE_MIN: float = 0.1
 CROSSOVER_RATE_MAX: float = 0.6
-USE_NUMPY: bool = True
+USE_NUMPY: bool = False
 
 
 if USE_NUMPY:
