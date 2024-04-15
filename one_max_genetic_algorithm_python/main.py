@@ -4,21 +4,27 @@ from tqdm import tqdm
 from typing import List
 from concurrent.futures import ProcessPoolExecutor
 from results import Results
-from one_max_genetic_algorithm import genetic_algorithm
 from utils import generate_equally_spaced_values
 from timeit_functions import timeit
 
-RUN_TIMES: int = 10
+RUN_TIMES: int = 30
 GENERATIONS: int = 500
 POPULATION_SIZE: int = 90
 GENOME_LENGTH: int = 25
 SELECT_PARENT_MODE: str = "tournament"  # tournament or roulette. Tournament usually converges faster and yields better results.
-TARGET_GENERATION_FITNESS: float = 0.99999  # When a generation is considered fit enough to skip the next iterations. Values close to 1.0 will yield better results.
+TARGET_GENERATION_FITNESS: float = 0.995  # When a generation is considered fit enough to skip the next iterations. Values close to 1.0 will yield better results.
 TARGET_PROBLEM_FITNESS: float = 0.999  # When the problem is marked as solved. Values very close to 1.0 will not stop the execution.
-MUTATION_RATE_MIN: float = 0.0
+MUTATION_RATE_MIN: float = 0.001
 MUTATION_RATE_MAX: float = 0.01
 CROSSOVER_RATE_MIN: float = 0.1
-CROSSOVER_RATE_MAX: float = 0.8
+CROSSOVER_RATE_MAX: float = 0.6
+USE_NUMPY: bool = True
+
+
+if USE_NUMPY:
+    from one_max_genetic_algorithm_numpy import genetic_algorithm
+else:
+    from one_max_genetic_algorithm_vanilla import genetic_algorithm
 
 
 def process_genetic_algorithm(mutation_rate_values: List[float], crossover_rate_values: List[float]):
@@ -33,7 +39,6 @@ def process_genetic_algorithm(mutation_rate_values: List[float], crossover_rate_
 
         prev_local_score = 0
 
-        # results = Results(max_generations=GENERATIONS, max_fitness=1.0)
         for i, crossover_rate in enumerate(crossover_rate_values):
             results = Results(max_generations=GENERATIONS, max_fitness=1.0)
             progress_bar.set_description(f"Score:{prev_best_score:.3f}")
@@ -59,7 +64,6 @@ def process_genetic_algorithm(mutation_rate_values: List[float], crossover_rate_
                 break
 
             prev_local_score = score
-            # results = Results(max_generations=GENERATIONS)
             progress_bar.update(1)
 
         if prev_best_score >= TARGET_PROBLEM_FITNESS:  # Check if perfect score to close the algorithm execution
@@ -77,7 +81,6 @@ def process_genetic_algorithm(mutation_rate_values: List[float], crossover_rate_
 
 @timeit
 def main() -> None:
-
     mutation_rate_values = generate_equally_spaced_values(min_val=MUTATION_RATE_MIN, max_val=MUTATION_RATE_MAX, length=8, invert=True)
     crossover_rate_values = generate_equally_spaced_values(min_val=CROSSOVER_RATE_MIN, max_val=CROSSOVER_RATE_MAX, length=5)
 

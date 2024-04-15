@@ -1,12 +1,12 @@
 import unittest
-from one_max_genetic_algorithm_python.one_max_genetic_algorithm import (random_genome, init_population, get_genome_fitness,
-                                                                        calculate_population_fitnesses, get_target_fitness,
-                                                                        get_best_fitness, get_generation_fitness, select_parent,
-                                                                        select_parent_tournament, select_parent_roulette, crossover,
-                                                                        mutate, genetic_algorithm)
+from one_max_genetic_algorithm_python.one_max_genetic_algorithm_vanilla import (random_genome, init_population, get_genome_fitness,
+                                                                                calculate_population_fitnesses, get_target_fitness,
+                                                                                get_best_fitness, get_generation_fitness, select_parent,
+                                                                                select_parent_tournament, select_parent_roulette, crossover,
+                                                                                mutate, create_new_population, genetic_algorithm)
 
 
-class TestGeneticAlgorithm(unittest.TestCase):
+class TestUnitGeneticAlgorithm(unittest.TestCase):
 
     def test_random_genome_length(self):
         length = 10
@@ -59,6 +59,7 @@ class TestGeneticAlgorithm(unittest.TestCase):
         population = []
         expected_fitness = []
         actual_fitness = calculate_population_fitnesses(population)
+        print(actual_fitness)
         self.assertEqual(actual_fitness, expected_fitness)
 
     def test_calculate_population_fitnesses_single_genome(self):
@@ -129,7 +130,7 @@ class TestGeneticAlgorithm(unittest.TestCase):
         ]
         fitness_values = calculate_population_fitnesses(population)
 
-        mode = "gibberish"
+        mode = "gibberish"  # Ensure default mode if the mode doesn't exist
         selected_individual = select_parent(population, fitness_values, mode)
         self.assertIn(selected_individual, population)   # Ensure the selected individual is from the population
 
@@ -201,6 +202,33 @@ class TestGeneticAlgorithm(unittest.TestCase):
         mutated_genome = mutate([0, 1, 0, 1], 0.5)
         self.assertEqual(len(mutated_genome), 4)
 
+    def test_mutate_population_fitness_all_ones(self):
+        num_times = 100_000
+        mutation_rate = 0.5
+        genome_length = 50
+        mutated_gen_fitness = []
+        for _ in range(0, num_times):
+            genome = [1] * genome_length
+            mutated_genome = mutate(genome, mutation_rate)
+            mutated_gen_fitness.append(get_genome_fitness(mutated_genome))
+
+        avg_mutation_gen_fitness = sum(mutated_gen_fitness) / len(mutated_gen_fitness)
+        self.assertTrue(0.49 <= avg_mutation_gen_fitness <= 0.51)
+
+    def test_mutate_population_fitness_all_zeroes(self):
+        num_times = 100_000
+        mutation_rate = 0.5
+        genome_length = 50
+
+        mutated_gen_fitness = []
+        for _ in range(0, num_times):
+            genome = [0] * genome_length
+            mutated_genome = mutate(genome, mutation_rate)
+            mutated_gen_fitness.append(get_genome_fitness(mutated_genome))
+
+        avg_mutation_gen_fitness = sum(mutated_gen_fitness) / len(mutated_gen_fitness)
+        self.assertTrue(0.49 <= avg_mutation_gen_fitness <= 0.51)
+
     def test_genetic_algorithm_default_parameters(self):
         # Test with default parameters
         generation, generation_fitness, best_fitness = genetic_algorithm()
@@ -219,8 +247,8 @@ class TestGeneticAlgorithm(unittest.TestCase):
 
     def test_genetic_algorithm_custom_parameters(self):
         # Test with custom parameters
-        population_size = 10
-        genome_length = 5
+        population_size = 20
+        genome_length = 10
         max_generations = 50
         mutation_rate = 0.01
         crossover_rate = 0.8
@@ -251,6 +279,77 @@ class TestGeneticAlgorithm(unittest.TestCase):
         self.assertLessEqual(generation_fitness, 1)
         self.assertGreaterEqual(best_fitness, 0)
         self.assertLessEqual(best_fitness, 1)
+
+
+class TestInteGeneticAlgorithm(unittest.TestCase):
+
+    def test_inte_new_population_random(self):
+        # Test with custom parameters
+        population_size = 50
+        genome_length = 20
+        num_times = 200
+
+        random_fitness = []
+        for _ in range(0, num_times):
+            population = init_population(population_size, genome_length)
+            fitness_values = calculate_population_fitnesses(population)
+            generation_fitness = get_generation_fitness(fitness_values, population_size)
+            random_fitness.append(generation_fitness)
+
+        fitness_avg = sum(random_fitness) / len(random_fitness)
+        self.assertTrue(0.49 <= fitness_avg <= 0.51)
+
+    def test_inte_new_population_zeroes(self):
+        # Test with custom parameters
+        population_size = 1_000
+        genome_length = 50
+        crossover_rate = 0.2
+        mutation_rate = 0.03
+
+        genome = [0] * genome_length
+        population = [genome[:] for _ in range(population_size)]
+        fitness_values = calculate_population_fitnesses(population)
+        new_population = []
+
+        for _ in range(population_size // 2):
+            parent1 = select_parent(population, fitness_values, mode="roulette")
+            parent2 = select_parent(population, fitness_values, mode="roulette")
+            offspring1, offspring2 = crossover(parent1, parent2, crossover_rate)
+            new_population.extend([mutate(offspring1, mutation_rate), mutate(offspring2, mutation_rate)])
+        if population_size % 2 != 0:
+            parent = select_parent(population, fitness_values, mode="roulette")
+            new_population.append(mutate(parent, mutation_rate))
+
+        fitness_values = calculate_population_fitnesses(new_population)
+        generation_fitness = get_generation_fitness(fitness_values, population_size)
+
+        self.assertTrue(0.02 <= generation_fitness <= 0.04)
+
+    def test_inte_get_avg(self):
+        # Test with custom parameters
+        population_size = 1_000
+        genome_length = 20
+        crossover_rate = 0.6
+        mutation_rate = 0.07
+        num_times = 10
+
+        genome = [0] * genome_length
+        population = [genome[:] for _ in range(population_size)]
+        fitness_values = calculate_population_fitnesses(population)
+
+        generation_fitness = []
+        best_genome_fitness = []
+        for _ in range(0, num_times):
+            new_population = create_new_population(population_size, population, fitness_values, "roulette", crossover_rate, mutation_rate)
+            fitness_values = calculate_population_fitnesses(new_population)
+            generation_fitness.append(get_generation_fitness(fitness_values, population_size))
+            best_genome_fitness.append(get_best_fitness(fitness_values))
+
+        avg_best_fitness = sum(generation_fitness) / len(generation_fitness)
+        avg_best_genome_fitness = sum(best_genome_fitness) / len(best_genome_fitness)
+
+        self.assertTrue(0.069 <= avg_best_fitness <= 0.71)
+        self.assertTrue(0.25 <= avg_best_genome_fitness <= 0.45)
 
 
 if __name__ == '__main__':
