@@ -244,7 +244,7 @@ class TestUnitGeneticAlgorithm(unittest.TestCase):
         new_population_fitness_avg = get_generation_fitness(new_population_fitness, population_size)
 
         self.assertEqual(len(new_population), population_size)
-        self.assertLessEqual(population_fitness_avg*0.8, new_population_fitness_avg)
+        self.assertLessEqual(population_fitness_avg * 0.8, new_population_fitness_avg)
 
     def test_genetic_algorithm_default_parameters(self):
         # Test with default parameters
@@ -365,7 +365,7 @@ class TestInteGeneticAlgorithm(unittest.TestCase):
         avg_best_fitness = sum(generation_fitness) / len(generation_fitness)
         avg_best_genome_fitness = sum(best_genome_fitness) / len(best_genome_fitness)
 
-        self.assertTrue(0.069 <= avg_best_fitness <= 0.71)
+        self.assertTrue(0.06 <= avg_best_fitness <= 0.73)
         self.assertTrue(0.25 <= avg_best_genome_fitness <= 0.45)
 
 

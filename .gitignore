@@ -15,3 +15,6 @@ env/
 
 # Ignore Visual Studio Code directory
 .vscode/
+
+# Ignore MacOS files
+**/.DS_Store

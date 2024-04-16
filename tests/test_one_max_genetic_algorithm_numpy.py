@@ -240,7 +240,7 @@ class TestUnitGeneticAlgorithm(unittest.TestCase):
         new_population_fitness_avg = get_generation_fitness(new_population_fitness, population_size)
 
         self.assertEqual(len(new_population), population_size)
-        self.assertLessEqual(population_fitness_avg*0.8, new_population_fitness_avg)
+        self.assertLessEqual(population_fitness_avg * 0.8, new_population_fitness_avg)
 
     def test_genetic_algorithm_default_parameters(self):
         # Test with default parameters
@@ -329,7 +329,7 @@ class TestInteGeneticAlgorithm(unittest.TestCase):
             parent2 = select_parent(population, fitness_values, mode="roulette")
             offspring1, offspring2 = crossover(parent1, parent2, crossover_rate)
             new_population[i] = mutate(offspring1, mutation_rate)
-            new_population[i+1] = mutate(offspring2, mutation_rate)
+            new_population[i + 1] = mutate(offspring2, mutation_rate)
         if population_size % 2 != 0:
             parent = select_parent(population, fitness_values, mode="roulette")
             new_population[-1] = mutate(parent, mutation_rate)
