@@ -365,7 +365,7 @@ class TestInteGeneticAlgorithm(unittest.TestCase):
         avg_best_fitness = sum(generation_fitness) / len(generation_fitness)
         avg_best_genome_fitness = sum(best_genome_fitness) / len(best_genome_fitness)
 
-        self.assertTrue(0.06 <= avg_best_fitness <= 0.73)
+        self.assertTrue(0.06 <= avg_best_fitness <= 0.073)
         self.assertTrue(0.25 <= avg_best_genome_fitness <= 0.45)
 
 
