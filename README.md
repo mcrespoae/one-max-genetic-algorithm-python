@@ -97,7 +97,7 @@ The code is equipped with comprehensive unit and integration tests to ensure rel
 make test
 ```
 ## Rust implementation
-I've also developed this repository in [Rust](https://github.com/mcrespoae/one-max-genetic-algorithm-python), achieving an average execution time that's 3.4 times faster compared to vanilla Python.
+I've also developed this repository in [Rust](https://github.com/mcrespoae/one-max-genetic-algorithm-rust), achieving an average execution time that's 3.4 times faster compared to vanilla Python.
 
 ## Contributors
 
