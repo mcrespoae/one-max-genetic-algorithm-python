@@ -4,11 +4,12 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+setuptools = "*"
 tqdm = "*"
 mypy = "*"
 numpy = "*"
 types-tqdm = "*"
-setuptools = "*"
+
 
 [dev-packages]
 

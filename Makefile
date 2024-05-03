@@ -26,21 +26,29 @@ endif
 	pipenv install
 
 build:
-	pipenv run mypyc src/*.py
-
 ifeq ($(OS),Windows_NT)
+	@for %%i in (src\*.py) do pipenv run mypyc %%i
 	@if not exist compiled mkdir compiled
-	@move src\*.pyd compiled
+	@move *.pyd compiled
 else
+	@pipenv run mypyc src/*.py
 	@if [ ! -d "compiled" ]; then mkdir -p compiled; fi
 	@mv *.so compiled
 endif
 
-run: build
-	@PYTHONPATH=./compiled $(VENV_ACTIVATE) $(PYTHON) -c "import main; main.main()"
+run:
+ifeq ($(OS),Windows_NT)
+	$(VENV_ACTIVATE) cd compiled & $(PYTHON) -c "import main; main.main()"
+else
+	PYTHONPATH=./compiled $(VENV_ACTIVATE) $(PYTHON) -c "import main; main.main()"
+endif
 
-run-numpy: build
-	@PYTHONPATH=./compiled $(VENV_ACTIVATE) $(PYTHON) -c "import main; main.main(True)"
+run-numpy:
+ifeq ($(OS),Windows_NT)
+	$(VENV_ACTIVATE) cd compiled & $(PYTHON) -c "import main; main.main(True)"
+else
+	PYTHONPATH=./compiled $(VENV_ACTIVATE) $(PYTHON) -c "import main; main.main(True)"
+endif
 
 run-dev:
 	$(VENV_ACTIVATE) $(PYTHON) ./src/main.py
@@ -51,7 +59,9 @@ run-dev-numpy:
 clean:
 	$(RMDIR) .mypy_cache
 	$(RM) *.so
+	$(RM) *.pyd
 	$(RMDIR) compiled
+	$(RMDIR) build
 
 test:
 	$(VENV_ACTIVATE) $(PYTHON) -m unittest discover -v -s ./tests -p "*test*.py"

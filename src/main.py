@@ -10,10 +10,10 @@ from results import Results
 from timeit_functions import timeit
 from utils import generate_equally_spaced_values
 
-RUN_TIMES: int = 10
-GENERATIONS: int = 500
-POPULATION_SIZE: int = 75
-GENOME_LENGTH: int = 40
+RUN_TIMES: int = 8
+GENERATIONS: int = 400
+POPULATION_SIZE: int = 50
+GENOME_LENGTH: int = 35
 SELECT_PARENT_MODE: str = (
     "tournament"  # tournament or roulette. Tournament usually converges faster and yields better results.
 )
@@ -115,7 +115,7 @@ def main(use_numpy: bool = False) -> None:
         Population Size:{POPULATION_SIZE:>12}
         Genome Length:{GENOME_LENGTH:>14}
         Parent selection mode: {SELECT_PARENT_MODE}
-        Mutation Rate:  {mutation_rate_values[0]:>9} to {mutation_rate_values[-1]} with  {len(mutation_rate_values)} steps
+        Mutation Rate:  {mutation_rate_values[0]:>9} to {mutation_rate_values[-1]} with {len(mutation_rate_values)} steps
         Crossover Rate: {crossover_rate_values[0]:>9} to {crossover_rate_values[-1]} with {len(crossover_rate_values)} steps
         {"-" * 50}"""
     )

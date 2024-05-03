@@ -20,7 +20,6 @@ def init_population(population_size: int, genome_length: int) -> np.ndarray:
     return np.array([random_genome(genome_length) for _ in range(population_size)])
 
 
-@cache
 def get_genome_fitness(genome: np.ndarray) -> float:
     return np.sum(genome) / len(genome)
 
