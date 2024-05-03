@@ -1,11 +1,23 @@
-
 import unittest
+
 import numpy as np
-from one_max_genetic_algorithm_python.one_max_genetic_algorithm_numpy import (random_genome, init_population, get_genome_fitness,
-                                                                              calculate_population_fitnesses, get_target_fitness,
-                                                                              get_best_fitness, get_generation_fitness, select_parent,
-                                                                              select_parent_tournament, select_parent_roulette, crossover,
-                                                                              mutate, create_new_population, genetic_algorithm)
+
+from src.one_max_genetic_algorithm_numpy import (
+    calculate_population_fitnesses,
+    create_new_population,
+    crossover,
+    genetic_algorithm,
+    get_best_fitness,
+    get_generation_fitness,
+    get_genome_fitness,
+    get_target_fitness,
+    init_population,
+    mutate,
+    random_genome,
+    select_parent,
+    select_parent_roulette,
+    select_parent_tournament,
+)
 
 
 class TestUnitGeneticAlgorithm(unittest.TestCase):
@@ -64,11 +76,10 @@ class TestUnitGeneticAlgorithm(unittest.TestCase):
         np.testing.assert_equal(actual_fitness, expected_fitness)
 
     def test_calculate_population_fitnesses_multiple_genomes(self):
-        population = np.array([
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [1, 1, 1, 1, 1, 1, 0, 0, 0, 0],
-            [0, 1, 0, 1, 0, 1, 0, 1, 0, 0]
-        ], dtype=np.int8)
+        population = np.array(
+            [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [1, 1, 1, 1, 1, 1, 0, 0, 0, 0], [0, 1, 0, 1, 0, 1, 0, 1, 0, 0]],
+            dtype=np.int8,
+        )
 
         expected_fitness = np.array([0.0, 0.6, 0.4])
         actual_fitness = calculate_population_fitnesses(population)
@@ -118,26 +129,32 @@ class TestUnitGeneticAlgorithm(unittest.TestCase):
 
     def test_select_parent(self):
         # Test scenario with a small population
-        population = np.array([
-            [1, 1, 1, 1],  # Individual 1
-            [1, 0, 1, 0],  # Individual 2
-            [0, 0, 1, 1],  # Individual 3
-            [0, 0, 0, 0],  # Individual 4
-        ], dtype=np.int8)
+        population = np.array(
+            [
+                [1, 1, 1, 1],  # Individual 1
+                [1, 0, 1, 0],  # Individual 2
+                [0, 0, 1, 1],  # Individual 3
+                [0, 0, 0, 0],  # Individual 4
+            ],
+            dtype=np.int8,
+        )
         fitness_values = calculate_population_fitnesses(population)
 
         mode = "gibberish"  # Ensure default mode if the mode doesn't exist
         selected_individual = select_parent(population, fitness_values, mode)
-        self.assertIn(selected_individual, population)   # Ensure the selected individual is from the population
+        self.assertIn(selected_individual, population)  # Ensure the selected individual is from the population
 
     def test_select_parent_tournament(self):
         # Test scenario with a small population
-        population = np.array([
-            [1, 1, 1, 1],  # Individual 1
-            [1, 0, 1, 0],  # Individual 2
-            [0, 0, 1, 1],  # Individual 3
-            [0, 0, 0, 0],  # Individual 4
-        ], dtype=np.int8)
+        population = np.array(
+            [
+                [1, 1, 1, 1],  # Individual 1
+                [1, 0, 1, 0],  # Individual 2
+                [0, 0, 1, 1],  # Individual 3
+                [0, 0, 0, 0],  # Individual 4
+            ],
+            dtype=np.int8,
+        )
 
         fitness_values = calculate_population_fitnesses(population)
         tournament_size = 2
@@ -146,16 +163,19 @@ class TestUnitGeneticAlgorithm(unittest.TestCase):
 
     def test_select_parent_roulette(self):
         # Test scenario with a small population
-        population = np.array([
-            [1, 1, 1, 1],  # Individual 1
-            [1, 0, 1, 0],  # Individual 2
-            [0, 0, 1, 1],  # Individual 3
-            [0, 0, 0, 0],  # Individual 4
-        ], dtype=np.int8)
+        population = np.array(
+            [
+                [1, 1, 1, 1],  # Individual 1
+                [1, 0, 1, 0],  # Individual 2
+                [0, 0, 1, 1],  # Individual 3
+                [0, 0, 0, 0],  # Individual 4
+            ],
+            dtype=np.int8,
+        )
         fitness_values = calculate_population_fitnesses(population)
 
         selected_individual = select_parent_roulette(population, fitness_values)
-        self.assertIn(selected_individual, population)   # Ensure the selected individual is from the population
+        self.assertIn(selected_individual, population)  # Ensure the selected individual is from the population
 
     def test_crossover_no_crossover(self):
         # Given
@@ -235,7 +255,9 @@ class TestUnitGeneticAlgorithm(unittest.TestCase):
         population_fitness = calculate_population_fitnesses(population)
         population_fitness_avg = get_generation_fitness(population_fitness, population_size)
 
-        new_population = create_new_population(population_size, population, fitness_values, select_parent_mode, crossover_rate, mutation_rate)
+        new_population = create_new_population(
+            population_size, population, fitness_values, select_parent_mode, crossover_rate, mutation_rate
+        )
         new_population_fitness = calculate_population_fitnesses(new_population)
         new_population_fitness_avg = get_generation_fitness(new_population_fitness, population_size)
 
@@ -277,7 +299,7 @@ class TestUnitGeneticAlgorithm(unittest.TestCase):
             crossover_rate=crossover_rate,
             select_parent_mode=select_parent_mode,
             target_generation_fitness=target_generation_fitness,
-            verbose=verbose
+            verbose=verbose,
         )
 
         self.assertIsInstance(generation, int)
@@ -354,7 +376,9 @@ class TestInteGeneticAlgorithm(unittest.TestCase):
         generation_fitness = []
         best_genome_fitness = []
         for _ in range(0, num_times):
-            new_population = create_new_population(population_size, population, fitness_values, "roulette", crossover_rate, mutation_rate)
+            new_population = create_new_population(
+                population_size, population, fitness_values, "roulette", crossover_rate, mutation_rate
+            )
             fitness_values = calculate_population_fitnesses(new_population)
             generation_fitness.append(get_generation_fitness(fitness_values, population_size))
             best_genome_fitness.append(get_best_fitness(fitness_values))
@@ -366,5 +390,5 @@ class TestInteGeneticAlgorithm(unittest.TestCase):
         self.assertTrue(0.25 <= avg_best_genome_fitness <= 0.45)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

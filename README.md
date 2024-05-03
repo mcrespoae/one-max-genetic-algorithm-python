@@ -29,7 +29,7 @@ Both commands will establish a virtual environment and install all dependencies 
     - `__init__.py`
     - `main.py`: Contains the main entry point for running the algorithm.
     - `one_max_genetic_algorithm_numpy.py`: Implementation of the genetic algorithm using the NumPy library.
-    - `one_max_genetic_algorithm_vannilla.py`: Implementation of the genetic algorithm using vanilla Python. 
+    - `one_max_genetic_algorithm_vannilla.py`: Implementation of the genetic algorithm using vanilla Python.
     - `timeit_functions.py`: Contains a decorator function for measuring the execution time.
     - `results.py`: Contains a class for storing and computing the results of the genetic algorithm.
     - `utils.py`: Contains helper functions.
@@ -65,7 +65,7 @@ You can adjust various parameters in `main.py` to customize the genetic algorith
 - `MUTATION_RATE_MAX`: Maximum mutation rate.
 - `CROSSOVER_RATE_MIN`: Minimum crossover rate.
 - `CROSSOVER_RATE_MAX`: Maximum crossover rate.
-- `USE_NUMPY`: Whether to use the NumPy version or the vanilla version. The NumPy version may have a slightly slower performance compared to the vanilla implementation. This NumPy implementation serves only to showcase my working knowledge in NumPy.
+- `USE_NUMPY`: Whether to use the NumPy version or the vanilla version. The NumPy version may have a slightly slower performance compared to the vanilla implementation. This NumPy implementation serves only to showcase my working knowledge in NumPy. Numba was not used due to incompatibilities with the code.
 
 
 If you're using Make, you can also execute the main file using the following command:

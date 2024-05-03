@@ -2,6 +2,13 @@
 *.pyc
 __pycache__/
 
+
+#Ignore mypyc
+build/
+*.o
+*.so
+*.pyd
+
 # Ignore CodeRunner file
 tempCodeRunnerFile.py
 

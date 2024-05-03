@@ -1,6 +1,7 @@
+from functools import cache
 from typing import Tuple
-import numpy as np
 
+import numpy as np
 
 # Create a single instance of default_rng
 gen = np.random.default_rng(seed=None)
@@ -19,6 +20,7 @@ def init_population(population_size: int, genome_length: int) -> np.ndarray:
     return np.array([random_genome(genome_length) for _ in range(population_size)])
 
 
+@cache
 def get_genome_fitness(genome: np.ndarray) -> float:
     return np.sum(genome) / len(genome)
 
@@ -41,7 +43,7 @@ def get_generation_fitness(fitness_values: np.ndarray, population_size: int) -> 
 
 def select_parent(population: np.ndarray, fitness_values: np.ndarray, mode: str = "tournament") -> np.ndarray:
     if mode.lower() == "tournament" or mode.lower() not in ["roulette", "tournament"]:
-        tournament_size: int = gen.integers(int(len(population) * 0.6), int(len(population) * 0.8) + 1)
+        tournament_size: int = gen.integers(int(len(population) * 0.6), int(len(population) * 0.8) + 1, dtype=int)
         tournament_size = tournament_size if tournament_size > 1 else 1
         return select_parent_tournament(population, fitness_values, tournament_size)
     else:
@@ -70,8 +72,10 @@ def select_parent_roulette(population: np.ndarray, fitness_values: np.ndarray) -
 def crossover(parent1: np.ndarray, parent2: np.ndarray, crossover_rate: float) -> Tuple[np.ndarray, np.ndarray]:
 
     if gen.random() < crossover_rate:
-        crossover_point = gen.integers(1, len(parent1))
-        return np.concatenate((parent1[:crossover_point], parent2[crossover_point:]), axis=0), np.concatenate((parent2[:crossover_point], parent1[crossover_point:]), axis=0)
+        crossover_point = gen.integers(1, len(parent1), dtype=int)
+        return np.concatenate((parent1[:crossover_point], parent2[crossover_point:]), axis=0), np.concatenate(
+            (parent2[:crossover_point], parent1[crossover_point:]), axis=0
+        )
     else:
         return parent1.copy(), parent2.copy()
 
@@ -90,9 +94,14 @@ def print_best_values(fitness_values: np.ndarray, population: np.ndarray, genera
     print(f"Generation perfect fitness percentage: {generation_fitness:.2f}")
 
 
-def create_new_population(population_size: int, population: np.ndarray,
-                          fitness_values: np.ndarray, select_parent_mode: str,
-                          crossover_rate: float, mutation_rate: float) -> np.ndarray:
+def create_new_population(
+    population_size: int,
+    population: np.ndarray,
+    fitness_values: np.ndarray,
+    select_parent_mode: str,
+    crossover_rate: float,
+    mutation_rate: float,
+) -> np.ndarray:
 
     new_population = np.empty_like(population)
 
@@ -110,10 +119,16 @@ def create_new_population(population_size: int, population: np.ndarray,
     return new_population
 
 
-def genetic_algorithm(population_size: int = 100, genome_length: int = 50,
-                      max_generations: int = 1000, mutation_rate: float = 0.02,
-                      crossover_rate: float = 0.7, select_parent_mode: str = "tournament",
-                      target_generation_fitness: float = 0.9, verbose: bool = False) -> Tuple[int, float, float]:
+def genetic_algorithm(
+    population_size: int = 100,
+    genome_length: int = 50,
+    max_generations: int = 1000,
+    mutation_rate: float = 0.02,
+    crossover_rate: float = 0.7,
+    select_parent_mode: str = "tournament",
+    target_generation_fitness: float = 0.9,
+    verbose: bool = False,
+) -> Tuple[int, float, float]:
 
     set_seed()
 
@@ -122,16 +137,20 @@ def genetic_algorithm(population_size: int = 100, genome_length: int = 50,
     best_population = population
     fitness_values = calculate_population_fitnesses(population)
 
-    best_generation_fitness = 0
+    best_generation_fitness = 0.0
 
     for generation in range(max_generations):
-        population = create_new_population(population_size, population, fitness_values, select_parent_mode, crossover_rate, mutation_rate)
+        population = create_new_population(
+            population_size, population, fitness_values, select_parent_mode, crossover_rate, mutation_rate
+        )
         fitness_values = calculate_population_fitnesses(population)
         generation_fitness = get_generation_fitness(fitness_values, population_size)
         best_gen_fitness = get_best_fitness(fitness_values)
 
         if verbose:
-            print(f"Generation {generation}: Best Fitness = {best_gen_fitness} Generation Fitness Percentage: {generation_fitness:.2f}")
+            print(
+                f"Generation {generation}: Best Fitness = {best_gen_fitness} Generation Fitness Percentage: {generation_fitness:.2f}"
+            )
 
         if generation_fitness >= best_generation_fitness:
             best_population = population

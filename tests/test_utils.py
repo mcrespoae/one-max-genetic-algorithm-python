@@ -1,5 +1,6 @@
 import unittest
-from one_max_genetic_algorithm_python.utils import generate_equally_spaced_values
+
+from src.utils import generate_equally_spaced_values
 
 
 class TestGenerateEquallySpacedValues(unittest.TestCase):
@@ -38,5 +39,5 @@ class TestGenerateEquallySpacedValues(unittest.TestCase):
         self.assertEqual(generate_equally_spaced_values(min_val, max_val, length, invert=True), expected_values)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

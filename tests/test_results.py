@@ -1,5 +1,7 @@
 import unittest
-from one_max_genetic_algorithm_python.results import Results
+
+from src.results import Results
+
 
 class TestResults(unittest.TestCase):
     def setUp(self):
@@ -31,13 +33,9 @@ class TestResults(unittest.TestCase):
         self.results.add_result(generation=2, generation_fitness=0.85, best_fitness=0.92)
 
         # Check if the score is calculated correctly
-        expected_score = (
-            0.4 * (0.92 / 1.0) +
-            0.1 * (1 - (1.5 - 1) / 100) +
-            0.3 * 0.825 +
-            0.2 * (0.91 / 1.0)
-        )
+        expected_score = 0.4 * (0.92 / 1.0) + 0.1 * (1 - (1.5 - 1) / 100) + 0.3 * 0.825 + 0.2 * (0.91 / 1.0)
         self.assertAlmostEqual(self.results.get_score(), expected_score)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()
