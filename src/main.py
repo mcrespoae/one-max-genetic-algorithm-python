@@ -39,6 +39,8 @@ def process_genetic_algorithm(
         print("Running vanilla version.")
         from one_max_genetic_algorithm_vanilla import genetic_algorithm
 
+        # TODO: Use JAX for GPU
+
     workers = max(2, cpu_count() - 2) if cpu_count() is not None else 2  # type: ignore
     total_iterations = len(mutation_rate_values) * len(crossover_rate_values)
     progress_bar = tqdm(total=total_iterations, desc="Processing")

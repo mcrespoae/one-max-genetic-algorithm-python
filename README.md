@@ -5,8 +5,8 @@ This project implements a genetic algorithm to solve the One Max Problem, which 
 
 ## Requirements
 
+- [Python 3.12](https://www.python.org/downloads/release/python-3127/).
 - [Pipenv](https://pipenv.pypa.io/).
-- [Python 3.12](https://www.python.org/downloads/release/python-3123/).
 - [Make](https://www.gnu.org/software/make/). For Windows users, consider installing Make via [Chocolatey](https://chocolatey.org/install) using  ` choco install make `
 
 ## Installation
